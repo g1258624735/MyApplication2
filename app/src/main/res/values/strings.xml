@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">My Application2</string>
+    <string name="action_settings">Settings</string>
+<!--网络加载错误-->
+    <string name="net_error">网络不给力，请检查网络设置</string>
+    <string name="net_error_title">网络不给力</string>
+    <string name="confirm">确认</string>
+    <string name="retry">重试</string>
+    <string name="cancel">取消</string>
+    <string name="wushuju">暂无数据</string>
+    <string name="loading">加载中</string>
+
+    <string name="view_retry_load_fail">网络出错了</string>
+    <string name="view_retry_click_reload">点击屏幕重新加载</string>
+
+    <string name="sweetaLert_dialog_default_title">提示</string>
+    <string name="sweetaLert_dialog_loading">请稍后</string>
+    <string name="sweetaLert_dialog_success">操作成功</string>
+
+    <string name="cube_ptr_pull_down_to_refresh">下拉刷新</string>
+    <string name="cube_ptr_release_to_refresh">释放刷新</string>
+    <string name="cube_ptr_refreshing">加载中...</string>
+    <string name="cube_ptr_refresh_complete">更新完成</string>
+
+</resources>

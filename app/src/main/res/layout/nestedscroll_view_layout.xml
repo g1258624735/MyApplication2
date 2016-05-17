@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+       >
+   <android.support.v4.widget.NestedScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       >
+       <LinearLayout
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+           <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+           >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="好多每年跳槽，只为了钱，留了很多操蛋的坑，log不打， 软件不写版本号，dump不做，文档不写，
+
+交接的时候，一副吊样，大言不惭，看svn， snv上都有记录，
+
+草，麻痹的那天破壁狗屎记录有你妈吊样，
+
+隔三差五崩溃， 害了客户，害了接手的人。
+
+发布出那么多版本出去， 麻痹，客户都把公司电话打烂。
+
+
+这些狗日的，自己跳槽，加薪。 留下一大堆垃圾出来，
+
+没接手项目之前，有次我主动说起const来， 居然大言不惭道，没const怎么了？
+
+保证稳定性就行。"/>
+           </android.support.v4.widget.NestedScrollView>
+           <android.support.v4.widget.NestedScrollView
+           android:layout_width="match_parent"
+           android:layout_height="300dp"
+           >
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="16sp"
+               android:text=" 大学毕业，我进了国企，在那里呆了六年，我热爱编程，所以为国企技术革新做出了贡献，因为排资论辈的国企没给我太多的升迁机会， 而对于同是计算科室的干部及科长对我的突出表现已经反感至及。 我实在呆不下去了选择了离开。
+    27岁的我去了一家公司，做我喜欢的软件开发， 在那里经历了为大型企业开发几个项目，并有幸以主打身份完成了一个大型企业软件项目。这些就是经验，经历， 让自己日后值钱的积累。
+
+    最近公司hr 通过猎头找来了一位十几年经验的it人员来面试， 那天特意也给我面试，hr没给我看他的简历，后来才得知是hr朋友的老公。 面试中看到他写的一份试券，里边两个编程算法（1。字符串替换； 2。排序）都写不出来。再接下去聊工作经历，原来他在十年前进了政府机关，做了一个外编人员一直到现在。   然后简单聊了一下， 我有了决定。
+
+   从试券看基础不扎实，又在政府机关工作了十年，很多新技术已经被同化了， 而且外边好多公司要找政府部门做事情赚政府的钱， 所以动手能力不会太好，再则就年纪已经很大了快40了，在it这个日新月异的行业上升空间已经不大。  我跟hr 说，这个人不适合公司让hr 放一放。
+
+      本来事情可以到此为止， 但是因为这个人是hr通过关系找来的关系户，再则就是夸下海口给人家高薪，这个人很突然的越过了部门经理直接入职了。虽然反对， 但人家已经辞了公职进来， 你不可能不要， 就进入试用期 。"/>
+           </android.support.v4.widget.NestedScrollView>
+       </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>

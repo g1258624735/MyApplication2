@@ -1,0 +1,31 @@
+<com.example.administrator.myapplication.widget.LeftScrollDeleteDragLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+        <LinearLayout
+            android:id="@+id/view_bg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:gravity="right">
+                <Button
+                    android:id="@+id/del"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    />
+        </LinearLayout>
+        <Button
+            android:id="@+id/view_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="向左滑出删除按钮"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            />
+</com.example.administrator.myapplication.widget.LeftScrollDeleteDragLayout>

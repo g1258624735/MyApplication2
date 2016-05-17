@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!-- 灰色字体 -->
+    <color name="text_default_color_gray">#999999</color>
+    <color name="text_default_color_grays">#f85c4f</color>
+    <!-- 默认文字颜色 -->
+    <color name="text_default_color">#3F3F3F</color>
+    <!-- 分隔线颜色 -->
+    <color name="dividing_line_color">#E4E4E4</color>
+
+    <!-- 全局色 -->
+    <color name="global_color">#517df8</color>
+    <color name="global_color1">#cccccc</color>
+    <!-- 全局配色 -->
+    <color name="global_dark_color">#007ACC</color>
+    <color name="green">#8db4c1</color>
+    <color name="white">#E4E4E4</color>
+    <color name="red">#c14242</color>
+</resources>
