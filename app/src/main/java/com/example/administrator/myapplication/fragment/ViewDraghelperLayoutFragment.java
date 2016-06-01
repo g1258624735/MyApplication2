@@ -26,12 +26,13 @@ public class ViewDraghelperLayoutFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         getActivity().setTitle("ViewDraghelperLayoutFragment");
         list = new ArrayList<String>();
-        list.add("LeftDragLayoutFragment");
-        list.add("BottomDraLayoutFragment");
+        list.add("左边滑出菜单-LeftDragLayoutFragment");
+        list.add("底部滑出菜单-BottomDraLayoutFragment");
         list.add("HongYangLeftDragLayoutFragment");
-        list.add("RightDragLayoutFragment");
-        list.add("TopDraLayoutFragment");
-        list.add("LeftScrollDeleteLayoutFragment");
+        list.add("右边滑出菜单-RightDragLayoutFragment");
+        list.add("顶部滑出菜单-TopDraLayoutFragment");
+        list.add("仿苹果左滑删除效果-LeftScrollDeleteLayoutFragment");
+        list.add("自定义下拉刷新控件-ReFreshDraLayoutFragment");
     }
 
     @Override
@@ -64,6 +65,9 @@ public class ViewDraghelperLayoutFragment extends ListFragment {
                 break;
             case 5:
                 transaction.replace(R.id.main_central_layout, new LeftScrollDeleteLayoutFragment()).addToBackStack(null).commit();
+                break;
+            case 6:
+                transaction.replace(R.id.main_central_layout, new ReFreshDraLayoutFragment()).addToBackStack(null).commit();
                 break;
         }
 

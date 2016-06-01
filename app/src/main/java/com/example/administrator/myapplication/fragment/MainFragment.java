@@ -30,15 +30,16 @@ public class MainFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list = new ArrayList<String>();
-        list.add("RXAndroid测试demo");
-        list.add("Retrofit测试demo");
-        list.add("OkHttpFragment测试demo");
-        list.add("NestedScrollView测试demo");
-        list.add("RescyViewFragment测试demo");
+        list.add("响应式开发RXAndroid");
+        list.add("最新网络请求神器Retrofit");
+        list.add("最新网络请求框架OkHttpFragment");
+        list.add("NestedScrollView");
+        list.add("RescyView上下拉刷新-RescyViewFragment");
         list.add("SwipeResfreshFragment测试demo");
-        list.add("MySwipeResfreshFragment测试demo");
-        list.add("ViewDraghelperLayoutFragment测试demo");
-        list.add("JsCallBackJavaFragment测试demo");
+        list.add("自定义加载更多-MySwipeResfreshFragment");
+        list.add("ViewDraghelper自定义神器-ViewDraghelperLayoutFragment");
+        list.add("JS 回掉android-JsCallBackJavaFragment");
+        list.add("自定义ProgressBarFragment");
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -47,6 +48,15 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().setTitle("首页");
+        int cout = getActivity().getSupportFragmentManager().getBackStackEntryCount();
+        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_central_layout);
+        if(fragment instanceof MainFragment){
+            DebugUtil.i("MainFragment", "我是MainFragment");
+        }else{
+            DebugUtil.i("MainFragment", "我是MySwipeResfreshFragment");
+        }
+        List<Fragment> list = getActivity().getSupportFragmentManager().getFragments();
+        DebugUtil.i("MainFragment", cout+"---"+list.size() );
     }
 
     @Nullable

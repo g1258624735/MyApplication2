@@ -28,6 +28,7 @@ import com.example.administrator.myapplication.fragment.MainFragment;
 import com.example.administrator.myapplication.fragment.MySwipeResfreshFragment;
 import com.example.administrator.myapplication.fragment.NestedScrollViewFragment;
 import com.example.administrator.myapplication.fragment.OkHttpFragment;
+import com.example.administrator.myapplication.fragment.ProgressBarFragment;
 import com.example.administrator.myapplication.fragment.RXFragment;
 import com.example.administrator.myapplication.fragment.RescyViewFragment;
 import com.example.administrator.myapplication.fragment.RetrofitFragment;
@@ -35,6 +36,9 @@ import com.example.administrator.myapplication.fragment.SwipeResfreshFragment;
 import com.example.administrator.myapplication.fragment.ViewDraghelperLayoutFragment;
 import com.example.administrator.myapplication.tools.SystemBarTintManager;
 
+/**
+ * 首页
+ */
 public class MainActivity extends AppCompatActivity implements MainFragment.OnItemClickListener{
 
     MainFragment fragment;
@@ -47,18 +51,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initSystemBar(R.color.colorPrimary);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                manager.beginTransaction().replace(R.id.main_central_layout, new MySwipeResfreshFragment()).addToBackStack(null).commit();
-            }
-        });
         if(null == fragment){
         fragment = new MainFragment();}
         fragment.setOnItemClickListener(this);
         FragmentTransaction  transaction= manager.beginTransaction();
         transaction.add(R.id.main_central_layout, fragment).commit();
+
     }
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
             onCall("5566");
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -199,6 +196,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
                 break;
             case 8:
                 transaction.replace(R.id.main_central_layout, new JsCallBackJavaFragment()).addToBackStack(null);
+                break;
+            case 9:
+                transaction.replace(R.id.main_central_layout, new ProgressBarFragment()).addToBackStack(null);
                 break;
         }
         transaction.commit();

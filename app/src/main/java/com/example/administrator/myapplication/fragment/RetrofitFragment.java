@@ -99,7 +99,6 @@ public class RetrofitFragment extends Fragment implements View.OnClickListener {
                     }
                 })
                 .subscribe(observer);
-
     }
 
     private void post() {

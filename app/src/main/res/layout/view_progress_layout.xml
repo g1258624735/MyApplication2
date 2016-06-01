@@ -1,0 +1,32 @@
+<com.example.administrator.myapplication.widget.ProgressDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray">
+
+    <TextView
+        android:id="@+id/view_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0%"
+        android:textColor="@color/colorAccent"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/view_mid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_top"
+        android:background="@drawable/pointer" />
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_below="@id/view_mid"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/pro_loading"
+        android:secondaryProgress="0" />
+</com.example.administrator.myapplication.widget.ProgressDragLayout>
