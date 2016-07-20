@@ -1,0 +1,22 @@
+<com.example.administrator.myapplication.widget.BotomDragLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+        <TextView
+            android:id="@+id/view_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="我是背景图片,\n点我弹出菜单栏"
+            android:gravity="center"
+           />
+        <TextView
+            android:id="@+id/view_bootom"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="我是底部菜单栏"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            />
+</com.example.administrator.myapplication.widget.BotomDragLayout>

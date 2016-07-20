@@ -21,6 +21,7 @@ import com.example.administrator.myapplication.R;
 
 /**
  * 自定义progressBar
+ * gxj
  */
 public class ProgressDragLayout extends ViewGroup {
     private final String TAG = this.getClass().getSimpleName();

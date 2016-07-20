@@ -26,12 +26,14 @@ import android.widget.Toast;
 import com.example.administrator.myapplication.fragment.JsCallBackJavaFragment;
 import com.example.administrator.myapplication.fragment.MainFragment;
 import com.example.administrator.myapplication.fragment.MySwipeResfreshFragment;
+import com.example.administrator.myapplication.fragment.MyViewListFragment;
 import com.example.administrator.myapplication.fragment.NestedScrollViewFragment;
 import com.example.administrator.myapplication.fragment.OkHttpFragment;
 import com.example.administrator.myapplication.fragment.ProgressBarFragment;
 import com.example.administrator.myapplication.fragment.RXFragment;
 import com.example.administrator.myapplication.fragment.RescyViewFragment;
 import com.example.administrator.myapplication.fragment.RetrofitFragment;
+import com.example.administrator.myapplication.fragment.ShuaxinFragment;
 import com.example.administrator.myapplication.fragment.SwipeResfreshFragment;
 import com.example.administrator.myapplication.fragment.ViewDraghelperLayoutFragment;
 import com.example.administrator.myapplication.tools.SystemBarTintManager;
@@ -183,22 +185,19 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnIt
                 transaction.replace(R.id.main_central_layout, new NestedScrollViewFragment()).addToBackStack(null);
                 break;
             case 4:
-                transaction.replace(R.id.main_central_layout, new RescyViewFragment()).addToBackStack(null);
-                break;
-            case 5:
-                transaction.replace(R.id.main_central_layout, new SwipeResfreshFragment()).addToBackStack(null);
-                break;
-            case 6:
-                transaction.replace(R.id.main_central_layout, new MySwipeResfreshFragment()).addToBackStack(null);
-                break;
-            case 7:
                 transaction.replace(R.id.main_central_layout, new ViewDraghelperLayoutFragment()).addToBackStack(null);
                 break;
-            case 8:
+            case 5:
                 transaction.replace(R.id.main_central_layout, new JsCallBackJavaFragment()).addToBackStack(null);
                 break;
-            case 9:
+            case 6:
                 transaction.replace(R.id.main_central_layout, new ProgressBarFragment()).addToBackStack(null);
+                break;
+            case 7:
+                transaction.replace(R.id.main_central_layout, new ShuaxinFragment()).addToBackStack(null);
+                break;
+            case 8:
+                transaction.replace(R.id.main_central_layout, new MyViewListFragment()).addToBackStack(null);
                 break;
         }
         transaction.commit();

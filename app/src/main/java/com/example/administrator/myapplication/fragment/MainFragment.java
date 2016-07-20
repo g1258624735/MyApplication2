@@ -34,12 +34,11 @@ public class MainFragment extends Fragment {
         list.add("最新网络请求神器Retrofit");
         list.add("最新网络请求框架OkHttpFragment");
         list.add("NestedScrollView");
-        list.add("RescyView上下拉刷新-RescyViewFragment");
-        list.add("SwipeResfreshFragment测试demo");
-        list.add("自定义加载更多-MySwipeResfreshFragment");
         list.add("ViewDraghelper自定义神器-ViewDraghelperLayoutFragment");
         list.add("JS 回掉android-JsCallBackJavaFragment");
         list.add("自定义ProgressBarFragment");
+        list.add("刷新集合列表-ShuaxinFragment");
+        list.add("自定义View列表-MyViewListFragment");
     }
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;

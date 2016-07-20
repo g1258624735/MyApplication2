@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import com.example.administrator.myapplication.R;
 
 
@@ -20,7 +21,7 @@ import com.example.administrator.myapplication.R;
  * gxj 2016.5.26
  * 基于ViewDragHelper改写的
  */
-public class ReFreshLayout extends FrameLayout {
+public class DemoFreshLayout extends FrameLayout {
     private final String TAG = this.getClass().getSimpleName();
     private ViewDragHelper mViewDragHelper;
     /**
@@ -39,75 +40,29 @@ public class ReFreshLayout extends FrameLayout {
      * 滑动view 的滑动距离占自身高度的比例
      */
     private float mTopSize;
-    private AbsListView view_bg;
-    private MaterialProgressDrawable mProgress;
+    private View view_bg;
 
-    public ReFreshLayout(Context context) {
+    public DemoFreshLayout(Context context) {
         this(context, null);
     }
 
-    public ReFreshLayout(Context context, AttributeSet attrs) {
+    public DemoFreshLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ReFreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DemoFreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
+
     private boolean flag = false;//是否需要拦截滑动触摸事件
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        view_bg = (ListView) findViewById(R.id.listview);
-        //创建下拉刷新加载按钮
-        createProgressView();
-        view_bg.setOnScrollListener(new AbsListView.OnScrollListener() {
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                switch (scrollState) {
-                    // 当不滚动时
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                        // 判断滚动到顶部
-                        if (view_bg.getFirstVisiblePosition() == 0) {
-                            flag=true;
-
-                            Log.d("gxj--","滑倒顶部");
-                        }else{
-                            flag = false;
-                            Log.d("gxj--","滑动中。。。");
-                        }
-                        break;
-                }
-            }
-            @Override
-            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            }
-        });
+        view_bg = (View) findViewById(R.id.view_bg);
+        v_top = (View) findViewById(R.id.view_top);
     }
 
-    /**
-     * addview 这个方法一定要传入布局加载器 不然没法丈量布局的大小
-     *   view_bg.addView(v_top,0,new FrameLayout.LayoutParams(LayoutParams.WRAP_view_bg,LayoutParams.WRAP_view_bg));
-     *
-     */
-    private void createProgressView() {
-        v_top = LayoutInflater.from(getContext()).inflate(R.layout.refresh_my_header_top_layout, null);
-        ImageView v_img = (ImageView) v_top.findViewById(R.id.img_refresh);
-        mProgress = new MaterialProgressDrawable(getContext(), v_img);
-        mProgress.setBackgroundColor(getResources().getColor(R.color.white));
-        //设置圈圈的各种大小
-        mProgress.updateSizes(MaterialProgressDrawable.LARGE);
-        this.addView(v_top,0,new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
-        viewHeight = v_top.getHeight();
-        mProgress.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.yellow), getResources().getColor(R.color.red));
-        mProgress.showArrow(true);
-        v_img.setImageDrawable(mProgress);
-        //圈圈周长，0f-1F
-        mProgress.setStartEndTrim(0f, 1f * 0.8f);
-        //箭头大小，0f-1F
-        mProgress.setArrowScale(1f);
-        //透明度，0-255
-        mProgress.setAlpha((int) (255 * 1f));
-        mProgress.start();
-    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -123,13 +78,13 @@ public class ReFreshLayout extends FrameLayout {
     }
 
     public void openCover() {
-        STATE = ReFreshLayout.OPENED;
+        STATE = DemoFreshLayout.OPENED;
         mViewDragHelper.smoothSlideViewTo(v_top, 0, 0);
         postInvalidateOnAnimation();
     }
 
     public void closeCover() {
-        STATE = ReFreshLayout.CLOSEING;
+        STATE = DemoFreshLayout.CLOSEING;
         mViewDragHelper.smoothSlideViewTo(v_top, 0, -viewHeight);
         postInvalidateOnAnimation();
     }
@@ -143,22 +98,23 @@ public class ReFreshLayout extends FrameLayout {
     private class DefaultDragHelper extends ViewDragHelper.Callback {
         @Override
         public boolean tryCaptureView(View view, int i) {
-            return view == view_bg;
+            return view == v_top;
         }
 
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             super.onViewPositionChanged(changedView, left, top, dx, dy);
             mTop = top;
-            mTopSize = (viewHeight+top) / (viewHeight * 1.0f);
+            mTopSize = (top) / (viewHeight * 1.0f);
             Log.d(TAG, "onViewPositionChanged()--" + "left:" + left + ",top:" + top + ",dx:" + dx + ",dy:" + dy + "mTopSize--" + mTopSize);
-            Log.e("gxj-----",(v_top.getMeasuredHeight()+ mTop)+"|"+mTop );
+            Log.e("gxj-----", (v_top.getMeasuredHeight() + mTop) + "|" + mTop);
             requestLayout();
 //            postInvalidateOnAnimation();
         }
 
         /**
          * 当captureview被捕获时回调
+         *
          * @param capturedChild
          * @param activePointerId
          */
@@ -219,7 +175,7 @@ public class ReFreshLayout extends FrameLayout {
         public void onEdgeDragStarted(int edgeFlags, int pointerId) {
             super.onEdgeDragStarted(edgeFlags, pointerId);
             Log.d(TAG, "onEdgeDragStarted()");
-            mViewDragHelper.captureChildView(view_bg, pointerId);
+            mViewDragHelper.captureChildView(v_top, pointerId);
         }
 
         /**
@@ -242,7 +198,7 @@ public class ReFreshLayout extends FrameLayout {
          */
         @Override
         public int getViewVerticalDragRange(View child) {
-            return child == view_bg ? viewHeight : 0;
+            return child == v_top ? viewHeight : 0;
         }
 
         /**
@@ -272,8 +228,8 @@ public class ReFreshLayout extends FrameLayout {
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
             Log.d(TAG, "clampViewPositionVertical()--top:" + view_bg.getPaddingBottom() + ",dy:" + dy);
-            final int topBound =0;
-            final int bottomBound =view_bg.getPaddingBottom()+viewHeight;
+            final int topBound = 0;
+            final int bottomBound = view_bg.getPaddingBottom() + viewHeight;
             final int newTop = Math.min(Math.max(top, topBound), bottomBound);
             return newTop;
         }
@@ -287,20 +243,21 @@ public class ReFreshLayout extends FrameLayout {
             return false;
         }
         //通过这个方法判断是否拦截 滑动事件
-      boolean  flag1 = mViewDragHelper.shouldInterceptTouchEvent(event);
+        boolean flag1 = mViewDragHelper.shouldInterceptTouchEvent(event);
         return flag1;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //通过这个方法判断是否处理拦截的触摸事件
-            mViewDragHelper.processTouchEvent(event);
+        mViewDragHelper.processTouchEvent(event);
         return true;
     }
 
     /**
      * 丈量所有控件的高度
      * 可以得到每个控件的最终高度
+     *
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
@@ -315,8 +272,8 @@ public class ReFreshLayout extends FrameLayout {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         Log.e("onLayout", l + "|" + t + "|" + r + "|" + b);
-        view_bg.layout(l, mTop+v_top.getMeasuredHeight() ,r,b+ v_top.getMeasuredHeight()+mTop );
-        v_top.layout(l, mTop, r, v_top.getMeasuredHeight()+ mTop);
-        Log.e("gxj-----",l+"|"+(v_top.getMeasuredHeight()+ mTop)+"|"+r+"|"+(b+v_top.getMeasuredHeight()+ mTop ));
+        view_bg.layout(l, mTop +v_top.getMeasuredHeight(), r,mTop +v_top.getMeasuredHeight() + view_bg.getMeasuredHeight());
+        v_top.layout(l, mTop, r, v_top.getMeasuredHeight() + mTop);
+        Log.e("gxj-----", l + "|" + (v_top.getMeasuredHeight() + mTop) + "|" + r + "|" + (b + v_top.getMeasuredHeight() + mTop));
     }
 }

@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.administrator.myapplication.R;
 
@@ -15,7 +18,7 @@ import com.example.administrator.myapplication.R;
  * author gxj
  * date 2016.5.22
  */
-public class LeftScrollDeleteDragLayout extends ViewGroup {
+public class LeftScrollDeleteDragLayout extends FrameLayout {
     private final String TAG = this.getClass().getSimpleName();
     private ViewDragHelper mViewDragHelper;
     /**
@@ -58,8 +61,8 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        v_content = findViewById(R.id.view_content);
-        view_bg = findViewById(R.id.view_bg);
+        v_content = getChildAt(1);
+        view_bg =getChildAt(0);
         viewWidth = v_content.getHeight();
     }
 
@@ -104,7 +107,7 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
 
             mLeft = left;
             mLeftSize =(-left)/ (dip2px(getContext(),80) * 1.0f);
-            Log.d(TAG, "onViewPositionChanged()--" + "left:" + left + ",top:" + top + ",dx:" + dx + ",dy:" + dy + "mLeftSize--" + mLeftSize);
+//            Log.d(TAG, "onViewPositionChanged()--" + "left:" + left + ",top:" + top + ",dx:" + dx + ",dy:" + dy + "mLeftSize--" + mLeftSize);
             invalidate();
         }
 
@@ -117,7 +120,7 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
         @Override
         public void onViewCaptured(View capturedChild, int activePointerId) {
             super.onViewCaptured(capturedChild, activePointerId);
-            Log.d(TAG, "onViewCaptured()--:");
+//            Log.d(TAG, "onViewCaptured()--:");
         }
 
         /**
@@ -133,7 +136,7 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-            Log.d(TAG, "onViewReleased()--xv:" + xvel + ",yv:" + yvel);
+//            Log.d(TAG, "onViewReleased()--xv:" + xvel + ",yv:" + yvel);
             //上拉
             if (mLeftSize > 0.5) {
                 openCover();
@@ -151,12 +154,12 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
         @Override
         public void onEdgeTouched(int edgeFlags, int pointerId) {
             super.onEdgeTouched(edgeFlags, pointerId);
-            Log.d(TAG, "onEdgeTouched()");
+//            Log.d(TAG, "onEdgeTouched()");
         }
 
         @Override
         public boolean onEdgeLock(int edgeFlags) {
-            Log.d(TAG, "onEdgeLock()");
+//            Log.d(TAG, "onEdgeLock()");
             return super.onEdgeLock(edgeFlags);
         }
 
@@ -169,7 +172,7 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
         @Override
         public void onEdgeDragStarted(int edgeFlags, int pointerId) {
             super.onEdgeDragStarted(edgeFlags, pointerId);
-            Log.d(TAG, "onEdgeDragStarted()");
+//            Log.d(TAG, "onEdgeDragStarted()");
             mViewDragHelper.captureChildView(v_content, pointerId);
         }
 
@@ -213,7 +216,7 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
             final int leftBound =v_content.getPaddingLeft()-dip2px(getContext(),80);
             final int rightBound =v_content.getPaddingRight();
             final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
-            Log.d(TAG, "clampViewPositionHorizontal()--left:" + left + ",dx:" + dx+"v_content.getPaddingLeft(),"+v_content.getPaddingLeft());
+//            Log.d(TAG, "clampViewPositionHorizontal()--left:" + left + ",dx:" + dx+"v_content.getPaddingLeft(),"+v_content.getPaddingLeft());
             return newLeft;
         }
     }
@@ -232,8 +235,38 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        float  startx = 0;
+        float  starty=0;
         //通过这个方法判断是否处理拦截的触摸事件
         mViewDragHelper.processTouchEvent(event);
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                 startx =  event.getX();
+                 starty =  event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float mX= event.getX()-startx;
+                float mY= event.getY()-starty;
+                if(Math.abs(mX)>Math.abs(mY)){
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    if(getParent() instanceof AbsListView){
+                        Log.e("gxj-----",mX+"|"+false);
+                    }
+                }else{
+                    getParent().requestDisallowInterceptTouchEvent(false);
+                    if(getParent() instanceof AbsListView) {
+                        Log.v("gxj-----", mX + "|" + true);
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                getParent().requestDisallowInterceptTouchEvent(false);
+                break;
+
+        }
         return true;
     }
 
@@ -245,19 +278,28 @@ public class LeftScrollDeleteDragLayout extends ViewGroup {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int maxHeight = MeasureSpec.getSize(heightMeasureSpec);
-        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
-                resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
-        viewWidth = v_content.getMeasuredWidth();
+        super.onMeasure(widthMeasureSpec,heightMeasureSpec);
+//        measureChildren(widthMeasureSpec, heightMeasureSpec);
+//        int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
+//        int maxHeight = MeasureSpec.getSize(heightMeasureSpec);
+//        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0),
+//                resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Log.e("onLayout", l + "|" + t + "|" + r + "|" + b);
-        v_content.layout(mLeft, t, mLeft+viewWidth,dip2px(getContext(),200) );
-        view_bg.layout(0, 0, r, dip2px(getContext(),200));
+//        Log.e("onLayout", l + "|" + t + "|" + r + "|" + b);
+//        v_content.layout(mLeft, t, mLeft+viewWidth,b );
+//        view_bg.layout(l, t, r, b);
+        MarginLayoutParams lp = (MarginLayoutParams) view_bg.getLayoutParams();
+        view_bg.layout(lp.leftMargin, lp.topMargin,
+                lp.leftMargin + view_bg.getMeasuredWidth(),
+                lp.topMargin + view_bg.getMeasuredHeight());
+        MarginLayoutParams lp_m = (MarginLayoutParams) v_content.getLayoutParams();
+        final int menuWidth = view_bg.getMeasuredWidth();
+        int childLeft =mLeft;
+        v_content.layout(childLeft, lp_m.topMargin, childLeft + menuWidth,
+                lp_m.topMargin + v_content.getMeasuredHeight());
     }
 
     /**

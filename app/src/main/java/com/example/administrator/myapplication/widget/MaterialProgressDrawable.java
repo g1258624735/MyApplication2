@@ -1,55 +1,32 @@
-/*
- * Copyright (C) 2014 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.administrator.myapplication.widget;
 
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.Transformation;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.Transformation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-/**
- * Fancy progress indicator for Material theme.
- *
- * @hide
- */
-class MaterialProgressDrawable extends Drawable implements Animatable {
+public class MaterialProgressDrawable extends Drawable implements Animatable {
     private static final Interpolator LINEAR_INTERPOLATOR = new LinearInterpolator();
     private static final Interpolator MATERIAL_INTERPOLATOR = new FastOutSlowInInterpolator();
 
@@ -58,9 +35,9 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     @IntDef({LARGE, DEFAULT})
     public @interface ProgressDrawableSize {}
     // Maps to ProgressBar.Large style
-    static final int LARGE = 0;
+    public static final int LARGE = 0;
     // Maps to ProgressBar default style
-    static final int DEFAULT = 1;
+    public static final int DEFAULT = 1;
 
     // Maps to ProgressBar default style
     private static final int CIRCLE_DIAMETER = 40;
@@ -73,7 +50,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     private static final float STROKE_WIDTH_LARGE = 3f;
 
     private final int[] COLORS = new int[] {
-        Color.BLACK
+            Color.BLACK
     };
 
     /**
@@ -90,7 +67,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     /** The number of points in the progress "star". */
     private static final float NUM_POINTS = 5f;
     /** The list of animators operating on this drawable. */
-    private final ArrayList<Animation> mAnimators = new ArrayList<Animation>();
+    private final ArrayList<Animation> mAnimators = new ArrayList<>();
 
     /** The indicator ring, used to manage animation state. */
     private final Ring mRing;
@@ -128,7 +105,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     }
 
     private void setSizeParameters(double progressCircleWidth, double progressCircleHeight,
-            double centerRadius, double strokeWidth, float arrowWidth, float arrowHeight) {
+                                   double centerRadius, double strokeWidth, float arrowWidth, float arrowHeight) {
         final Ring ring = mRing;
         final DisplayMetrics metrics = mResources.getDisplayMetrics();
         final float screenDensity = metrics.density;
@@ -142,13 +119,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
         ring.setInsets((int) mWidth, (int) mHeight);
     }
 
-    /**
-     * Set the overall size for the progress spinner. This updates the radius
-     * and stroke width of the ring.
-     *
-     * @param size One of {@link MaterialProgressDrawable.LARGE} or
-     *            {@link MaterialProgressDrawable.DEFAULT}
-     */
+
     public void updateSizes(@ProgressDrawableSize int size) {
         if (size == LARGE) {
             setSizeParameters(CIRCLE_DIAMETER_LARGE, CIRCLE_DIAMETER_LARGE, CENTER_RADIUS_LARGE,
@@ -198,7 +169,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
      */
     public void setBackgroundColor(int color) {
         mRing.setBackgroundColor(color);
-     }
+    }
 
     /**
      * Set the colors used in the progress animation from color resources.
@@ -336,7 +307,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
             // transformation from 0 - 1 takes place in the
             // remaining time
             ring.setColor(evaluateColorChange((interpolatedTime - COLOR_START_DELAY_OFFSET)
-                    / (1.0f - COLOR_START_DELAY_OFFSET), ring.getStartingColor(),
+                            / (1.0f - COLOR_START_DELAY_OFFSET), ring.getStartingColor(),
                     ring.getNextColor()));
         }
     }
@@ -362,7 +333,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
     private void setupAnimators() {
         final Ring ring = mRing;
         final Animation animation = new Animation() {
-                @Override
+            @Override
             public void applyTransformation(float interpolatedTime, Transformation t) {
                 if (mFinishing) {
                     applyFinishTranslation(interpolatedTime, ring);
@@ -386,7 +357,7 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
                                 / (1.0f - START_TRIM_DURATION_OFFSET);
                         final float startTrim = startingTrim
                                 + ((MAX_PROGRESS_ARC - minProgressArc) * MATERIAL_INTERPOLATOR
-                                        .getInterpolation(scaledTime));
+                                .getInterpolation(scaledTime));
                         ring.setStartTrim(startTrim);
                     }
 
@@ -418,17 +389,17 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
         animation.setInterpolator(LINEAR_INTERPOLATOR);
         animation.setAnimationListener(new Animation.AnimationListener() {
 
-                @Override
+            @Override
             public void onAnimationStart(Animation animation) {
                 mRotationCount = 0;
             }
 
-                @Override
+            @Override
             public void onAnimationEnd(Animation animation) {
                 // do nothing
             }
 
-                @Override
+            @Override
             public void onAnimationRepeat(Animation animation) {
                 ring.storeOriginals();
                 ring.goToNextColor();
@@ -501,9 +472,9 @@ class MaterialProgressDrawable extends Drawable implements Animatable {
 
             mPaint.setStrokeCap(Paint.Cap.SQUARE);
             mPaint.setAntiAlias(true);
-            mPaint.setStyle(Style.STROKE);
+            mPaint.setStyle(Paint.Style.STROKE);
 
-            mArrowPaint.setStyle(Style.FILL);
+            mArrowPaint.setStyle(Paint.Style.FILL);
             mArrowPaint.setAntiAlias(true);
         }
 
